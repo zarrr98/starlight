@@ -13,6 +13,7 @@ body {
   padding: 0;
   width: 100% !important;
   direction: rtl;
+  font-family: "Vaziri", Arial, sans-serif;
 }
 
 a,
@@ -20,4 +21,10 @@ a:hover {
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
+}
+
+@font-face {
+  font-family: "Vaziri";
+  src: url("../../fonts/Vazir.eot");
+  src: url("../../fonts/Vazir.woff") format("woff");
 }
