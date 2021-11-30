@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: $color_white;
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+}
+
+a,
+a:hover {
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
