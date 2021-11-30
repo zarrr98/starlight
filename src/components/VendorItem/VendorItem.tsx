@@ -1,4 +1,5 @@
 import React from "react";
+import { addCommaInEveryThreeChars } from "../../utils/functions";
 import "./styles.scss";
 
 interface Props {
@@ -18,8 +19,9 @@ const VendorItem = (props: Props) => {
   const stadardizePhotoSize = (url: string) => {
     let endpoint = url.substring(url.indexOf("uploads"));
     console.log("end point :", endpoint);
-    return `https://static.snapp-food.com/400x266/${endpoint}`;
+    return `https://static.snapp-food.com/530x530/${endpoint}`;
   };
+
   return (
     <div className="vendor-item">
       <header className="vendor-item__header">
@@ -46,6 +48,12 @@ const VendorItem = (props: Props) => {
         </div>
         <div className="vendor-item__desc">
           {props.data.description.replace(/,/g, " ")}
+        </div>
+        <div className="vendor-item__fee-info">
+          <span className="vendor-item__fee-text">ارسال اکسپرس</span>
+          <span className="vendor-item__fee-num">
+            {addCommaInEveryThreeChars(props.data.deliveryFee)} تومان
+          </span>
         </div>
       </div>
     </div>
