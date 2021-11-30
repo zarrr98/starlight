@@ -56,6 +56,9 @@ const VendorItem = (props: Props) => {
           </span>
         </div>
       </div>
+      <div className="vendor-item__logo-container">
+        <img alt="" src={props.data.logo} className="vendor-item__logo" />
+      </div>
     </div>
   );
 };
