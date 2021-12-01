@@ -80,7 +80,8 @@ const VendorsList = (props: Props) => {
     let scrollTop = e.target.scrollTop;
     if (
       hasScrollReachedBottom(scrollTop, props.containerRef.current) &&
-      !isLoading
+      !isLoading &&
+      hasNext
     ) {
       setPageNumber((prev) => prev + 1);
     }
