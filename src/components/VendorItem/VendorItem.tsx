@@ -1,25 +1,17 @@
 import React from "react";
+import { Vendor } from "../../reducers/VendorsListReducer";
 import { addCommaInEveryThreeChars } from "../../utils/functions";
 import "./styles.scss";
 
 interface Props {
-  data: {
-    title: string;
-    logo: string;
-    backgroundImage: string;
-    coverPath: string;
-    voteCount: number;
-    rate: number;
-    discountValueForView: number;
-    description: string;
-    deliveryFee: number;
-  };
+  data: Vendor;
 }
 const VendorItem = (props: Props) => {
   const stadardizePhotoSize = (url: string) => {
-    let endpoint = url.substring(url.indexOf("uploads"));
-    console.log("end point :", endpoint);
-    return `https://static.snapp-food.com/530x530/${endpoint}`;
+    // let endpoint = url.substring(url.indexOf("uploads"));
+    // console.log("end point :", endpoint, "original url: ",url);
+    // return `https://static.snapp-food.com/530x530/${endpoint}`;
+    return props.data.backgroundImage;
   };
 
   return (
