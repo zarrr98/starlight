@@ -1,4 +1,4 @@
-import React, { UIEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setVendors } from "../../actions/vendorsActions";
 import {
@@ -7,7 +7,6 @@ import {
 } from "../../reducers/VendorsListReducer";
 import { vendorsList } from "../../utils/API";
 import { hasScrollReachedBottom } from "../../utils/functions";
-import Loading from "../Loading/Loading";
 import VendorItem from "../VendorItem/VendorItem";
 import "./styles.scss";
 
@@ -105,12 +104,24 @@ const VendorsList = (props: Props) => {
     };
   }, []);
 
+  const implementLoading = () => {
+    let numberOfSkeletons =
+      vendors.length && isLoading ? 1 : !vendors.length ? 3 : 0;
+    let tempArray = new Array(numberOfSkeletons).fill(0);
+
+    let skeletons = tempArray.map((item, i) => {
+      return <VendorItem isSkeleton={true} key={i} />;
+    });
+
+    return skeletons;
+  };
+
   return (
     <div className="venders-container" onScroll={scrollHandler}>
       {vendors.map((item, i: number) => {
         return <VendorItem data={item} key={i} />;
       })}
-      {isLoading && <Loading active={isLoading} />}
+      {implementLoading()}
     </div>
   );
 };
