@@ -23,7 +23,7 @@ export function colorsList(pageNum: number) {
 export const vendorsList = (pageNum: number, lat: number, long: number) => {
   return defaultApi
     .get(
-      `${baseUrl}mobile/v3/restaurant/vendors-list?lat=${lat}&long=${long}&page=${pageNum}&page_size=2`
+      `${baseUrl}mobile/v3/restaurant/vendors-list?lat=${lat}&long=${long}&page=${pageNum}&page_size=10`
     )
     .then((res) => res.data)
     .catch((err) => {
