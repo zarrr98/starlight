@@ -1,0 +1,55 @@
+@mixin skeleton-animation {
+  background-color: #ced4da;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  animation-name: skeletonBackgroundAnim;
+  animation-timing-function: linear;
+}
+
+@-webkit-keyframes skeletonBackgroundAnim {
+  0% {
+    background-color: #ced4da;
+  }
+  50% {
+    background-color: #e1e7ee;
+  }
+  100% {
+    background-color: #ced4da;
+  }
+}
+
+@-moz-keyframes skeletonBackgroundAnim {
+  0% {
+    background-color: #ced4da;
+  }
+  50% {
+    background-color: #e1e7ee;
+  }
+  100% {
+    background-color: #ced4da;
+  }
+}
+
+@-o-keyframes skeletonBackgroundAnim {
+  0% {
+    background-color: #ced4da;
+  }
+  50% {
+    background-color: #e1e7ee;
+  }
+  100% {
+    background-color: #ced4da;
+  }
+}
+
+@keyframes skeletonBackgroundAnim {
+  0% {
+    background-color: #ced4da;
+  }
+  50% {
+    background-color: #e1e7ee;
+  }
+  100% {
+    background-color: #ced4da;
+  }
+}
