@@ -1,6 +1,10 @@
 import React, { UIEventHandler, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { VendorsListInterface } from "../../reducers/VendorsListReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { setVendors } from "../../actions/vendorsActions";
+import {
+  Vendor,
+  VendorsListInterface,
+} from "../../reducers/VendorsListReducer";
 import { vendorsList } from "../../utils/API";
 import { hasScrollReachedBottom } from "../../utils/functions";
 import Loading from "../Loading/Loading";
@@ -11,17 +15,17 @@ interface Props {
   containerRef: { current: HTMLDivElement | null };
 }
 const VendorsList = (props: Props) => {
-  const vendorsInfo = useSelector(
+  const { configs: vendorsConfig, vendors } = useSelector(
     (state: { vendorsList: VendorsListInterface }) => state.vendorsList
   );
+  const vendorsDispatch = useDispatch();
   const [pageNumber, setPageNumber] = useState(0);
   const [hasNext, setHasNext] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [vendors, setVendors] = useState([] as any);
 
   useEffect(() => {
     getVendersListFromServer(true);
-  }, [vendorsInfo.configs]);
+  }, [vendorsConfig]);
 
   useEffect(() => {
     getVendersListFromServer();
@@ -32,16 +36,15 @@ const VendorsList = (props: Props) => {
     let pageNum = getAndSetPageNumberBasedOnChangesInConfigs(configsChanged);
     let prevData =
       getAndSetVendorsPrevDataBasedOnChangesInConfigs(configsChanged);
-    const resp = vendorsList(
-      pageNum,
-      vendorsInfo.configs.lat,
-      vendorsInfo.configs.long
-    );
+    const resp = vendorsList(pageNum, vendorsConfig.lat, vendorsConfig.long);
     resp
       .then((data) => {
         console.log("data ------>", data);
-        let newData = [...prevData, ...data.data.finalResult];
-        setVendors(newData);
+        let vendorData = extractVendorsDataFromApiResponse(
+          data.data.finalResult
+        );
+        let newData: Vendor[] = [...prevData, ...vendorData];
+        vendorsDispatch(setVendors(newData));
         setIsLoading(false);
         setHasNext(!!data.data.finalResult.length);
       })
@@ -50,6 +53,14 @@ const VendorsList = (props: Props) => {
         setHasNext(false);
         console.log("Errrr :(((", err);
       });
+  };
+
+  const extractVendorsDataFromApiResponse = (
+    response: { data: Vendor; type: string }[]
+  ) => {
+    let vendorsResponse = response.filter((item) => item.type === "VENDOR");
+    let data = vendorsResponse.map((v) => v.data);
+    return data;
   };
 
   const getAndSetPageNumberBasedOnChangesInConfigs = (
@@ -70,7 +81,7 @@ const VendorsList = (props: Props) => {
     let data = vendors;
     if (configsChanged) {
       data = [];
-      setVendors([]);
+      vendorsDispatch(setVendors([]));
       setHasNext(true);
     }
     return data;
@@ -96,10 +107,8 @@ const VendorsList = (props: Props) => {
 
   return (
     <div className="venders-container" onScroll={scrollHandler}>
-      {vendors.map((item: { data: any; type: string }, i: number) => {
-        return (
-          item.type === "VENDOR" && <VendorItem data={item.data} key={i} />
-        );
+      {vendors.map((item, i: number) => {
+        return <VendorItem data={item} key={i} />;
       })}
       {isLoading && <Loading active={isLoading} />}
     </div>
