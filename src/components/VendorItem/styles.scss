@@ -1,4 +1,5 @@
 @import "../../assets/styles/variables/variables";
+@import "../../assets/styles/skeleton/skeletonAnimations";
 
 .vendor-item {
   width: 100%;
@@ -10,16 +11,28 @@
   margin-top: 20px;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
+
+  &--skeleton {
+    cursor: default;
+  }
 
   &__header {
     height: 50%;
     width: 100%;
     background-color: rgb(50, 90, 10);
+    &--skeleton {
+      @include skeleton-animation();
+    }
   }
   &__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+
+    &--skeleton {
+      display: none;
+    }
   }
   &__body {
     width: 100%;
@@ -31,6 +44,12 @@
   &__info {
     display: flex;
     justify-content: space-between;
+
+    &--skeleton {
+      @include skeleton-animation();
+      height: 20px;
+      border-radius: 5px;
+    }
   }
   &__point {
     display: flex;
@@ -66,10 +85,22 @@
     margin-top: 10px;
     color: $dark-grey;
     font-size: $regular-font-size;
+
+    &--skeleton {
+      @include skeleton-animation();
+      height: 20px;
+      border-radius: 5px;
+    }
   }
   &__fee-info {
     display: flex;
     margin-top: 10px;
+
+    &--skeleton {
+      @include skeleton-animation();
+      height: 20px;
+      border-radius: 5px;
+    }
   }
   &__fee-text {
     color: $light-grey;
